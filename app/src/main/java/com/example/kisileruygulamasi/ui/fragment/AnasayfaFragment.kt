@@ -16,7 +16,10 @@ import com.example.kisileruygulamasi.data.entity.Kisiler
 import com.example.kisileruygulamasi.databinding.FragmentAnasayfaBinding
 import com.example.kisileruygulamasi.ui.adapter.KisilerAdapter
 import com.example.kisileruygulamasi.ui.viewmodel.AnasayfaViewModel
+import com.example.kisileruygulamasi.utils.gecisYap
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AnasayfaFragment : Fragment() {
     private lateinit var binding: FragmentAnasayfaBinding
     private lateinit var viewModel: AnasayfaViewModel
@@ -28,7 +31,8 @@ class AnasayfaFragment : Fragment() {
         binding = FragmentAnasayfaBinding.inflate(inflater, container, false)
 
         binding.fabAnasayfa.setOnClickListener{
-            Navigation.findNavController(it).navigate(R.id.anasayfaToKisiKayit)
+            //Navigation.findNavController(it).navigate(R.id.anasayfaToKisiKayit)
+            Navigation.gecisYap(it,R.id.anasayfaToKisiKayit)
         }
 
         viewModel.kisilerListesi.observe(viewLifecycleOwner){

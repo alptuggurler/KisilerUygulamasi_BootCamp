@@ -6,8 +6,7 @@ import com.example.kisileruygulamasi.data.entity.Kisiler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class KisilerRepository {
-    var kisilerDataSoruce = KisilerDataSoruce()
+class KisilerRepository(var kisilerDataSoruce : KisilerDataSoruce) {
 
     suspend fun kaydet(kisi_ad: String, kisi_tel: String) =
         kisilerDataSoruce.kaydet(kisi_ad, kisi_tel)

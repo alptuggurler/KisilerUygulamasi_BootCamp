@@ -2,39 +2,33 @@ package com.example.kisileruygulamasi.data.datasource
 
 import android.util.Log
 import com.example.kisileruygulamasi.data.entity.Kisiler
+import com.example.kisileruygulamasi.room.KisilerDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class KisilerDataSoruce {
+class KisilerDataSoruce(var kisilerDao: KisilerDao) {
     suspend fun kaydet(kisi_ad: String, kisi_tel: String) {
-        Log.e("Kişi Kaydet", "$kisi_ad - $kisi_tel")
+        val kisi = Kisiler(0, kisi_ad, kisi_tel)
+       kisilerDao.kaydet(kisi)
     }
 
     suspend fun guncelle(kisi_id: Int, kisi_ad: String, kisi_tel: String) {
         Log.e("Kişi Güncelle", "$kisi_id - $kisi_ad - $kisi_tel")
-
+        val kisi = Kisiler(kisi_id, kisi_ad, kisi_tel)
+        kisilerDao.guncelle(kisi)
     }
 
     suspend fun sil(kisi_id:Int){
+        val silineneKisi = Kisiler(kisi_id, "", "")
+        kisilerDao.sil(silineneKisi)
         Log.e("Kişi Sil", kisi_id.toString())
     }
 
     suspend fun kisileriYukle() : List<Kisiler> = withContext(Dispatchers.IO){
-        val liste =  ArrayList<Kisiler>()
-        val k1 = Kisiler(1, "Ahmet", "1111")
-        val k2 = Kisiler(2, "Mehmet", "2222")
-        val k3 = Kisiler(3, "Beyza", "3333")
-        val k4 = Kisiler(4, "Veli", "4444")
-        liste.add(k1)
-        liste.add(k2)
-        liste.add(k3)
-        liste.add(k4)
-        return@withContext liste
+
+        return@withContext kisilerDao.kisileriYukle()
     }
     suspend fun ara(aramaKelimesi:String) : List<Kisiler> = withContext(Dispatchers.IO){
-        val liste =  ArrayList<Kisiler>()
-        val k1 = Kisiler(1, "Ahmet", "1111")
-        liste.add(k1)
-        return@withContext liste
+        return@withContext kisilerDao.ara(aramaKelimesi)
     }
 }
